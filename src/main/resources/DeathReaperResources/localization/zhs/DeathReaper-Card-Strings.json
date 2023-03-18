@@ -310,47 +310,5 @@
   "DeathReaper:": {
     "NAME": "霸气护体",
     "DESCRIPTION": "你的 dr:威压 上限每增加 1 ，获得 !M! 点 格挡 。"
-  },
-  "@@@@@@@@@@Deprecated": {
-    "NAME": "下列卡牌已弃用"
-  },
-  "DeathReaper:Epitaph": {
-    "NAME": "墓志铭",
-    "DESCRIPTION": "将一张 *诅咒之焰 移入 dr:墓地 。",
-    "UPGRADE_DESCRIPTION": "将一张 升级 的 *诅咒之焰 移入 dr:墓地 。"
-  },
-  "DeathReaper:Cremation": {
-    "NAME": "火葬",
-    "DESCRIPTION": "选择任意张手牌来 dr:埋葬 ，每 dr:埋葬 一张造成一次 !D! 点伤害并获得 !M! 点 dr:威压 。",
-    "EXTENDED_DESCRIPTION": ["埋葬"]
-  },
-  "DeathReaper:GodsPunishment": {
-    "NAME": "神罚",
-    "DESCRIPTION": "选择任意张手牌来 dr:埋葬 。 NL 将等量的 *惩戒 加入手牌。 NL 消耗 。",
-    "UPGRADE_DESCRIPTION": "选择任意张手牌来 dr:埋葬 。 NL 将等量的 升级 的 *惩戒 加入手牌。 NL 消耗 。",
-    "EXTENDED_DESCRIPTION": ["埋葬"]
-  },
-  "DeathReaper:WipeOut": {
-    "NAME": "一笔勾销",
-    "DESCRIPTION": "目标失去等同于 dr:审判 层数的生命。 NL 消耗 。",
-    "EXTENDED_DESCRIPTION": [" NL (造成 ", " 点伤害。)"]
-  },
-  "DeathReaper:DeathCurse": {
-    "NAME": "死亡诅咒",
-    "DESCRIPTION": "将 !M! 张 *惩戒 加入手牌。",
-    "UPGRADE_DESCRIPTION": "将 !M! 张 升级 的 *惩戒 加入手牌。"
-  },
-  "DeathReaper:Punishment": {
-    "NAME": "惩戒",
-    "DESCRIPTION": "给予随机敌人 !M! 点 dr:审判 。 NL 在本场战斗中所有 *惩戒 牌的数值增加 1 。 NL dr:埋葬 。"
-  },
-  "DeathReaper:Ferry": {
-    "NAME": "引渡",
-    "DESCRIPTION": "选择 !M! 张手牌 dr:埋葬 。 NL 获得 [E] [E] 。",
-    "EXTENDED_DESCRIPTION": ["埋葬"]
-  },
-  "DeathReaper:SummonRaven": {
-    "NAME": "渡鸦召唤",
-    "DESCRIPTION": "造成 !D! 点伤害。 dr:埋葬 。 NL dr:发掘 一张牌时，同样将此牌 dr:发掘 。"
   }
 }
