@@ -1,24 +1,22 @@
 package DeathReaper.cards;
 
 import DeathReaper.powers.JudgementPower;
-import basemod.AutoAdd;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.DamageAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import DeathReaper.characters.TheDeathReaper;
-import DeathReaper.DefaultMod;
+import DeathReaper.DeathReaperCore;
 import com.megacrit.cardcrawl.powers.PoisonPower;
 
-import static DeathReaper.DefaultMod.makeCardPath;
+import static DeathReaper.DeathReaperCore.makeCardPath;
 
 public class PlagueIncarnate extends AbstractDynamicCard {
     // TEXT DECLARATION
 
-    public static final String ID = DefaultMod.makeID(PlagueIncarnate.class.getSimpleName());
+    public static final String ID = DeathReaperCore.makeID(PlagueIncarnate.class.getSimpleName());
     public static final String IMG = makeCardPath("Attack.png");
 
     // /TEXT DECLARATION/
@@ -29,13 +27,13 @@ public class PlagueIncarnate extends AbstractDynamicCard {
     private static final CardRarity RARITY = CardRarity.RARE; //  Up to you, I like auto-complete on these
     private static final CardTarget TARGET = CardTarget.ENEMY;  //   since they don't change much.
     private static final CardType TYPE = CardType.ATTACK;       //
-    public static final CardColor COLOR = TheDeathReaper.Enums.COLOR_GRAY;
+    public static final CardColor COLOR = TheDeathReaper.Enums.DEATH_REAPER;
 
     private static final int COST = 2;
     private static final int UPGRADED_COST = 2;
 
-    private static final int DAMAGE = 9;
-    private static final int UPGRADE_PLUS_DMG = 5;
+    private static final int DAMAGE = 12;
+    private static final int UPGRADE_PLUS_DMG = 4;
 
     // /STAT DECLARATION/
 
@@ -55,7 +53,7 @@ public class PlagueIncarnate extends AbstractDynamicCard {
             @Override
             public void update() {
                 if (m.hasPower(JudgementPower.POWER_ID)) {
-                    this.addToBot(new ApplyPowerAction(m, p, new PoisonPower(m, p, DefaultMod.getPowerAmount(m, JudgementPower.POWER_ID))));
+                    this.addToBot(new ApplyPowerAction(m, p, new PoisonPower(m, p, DeathReaperCore.getPowerAmount(m, JudgementPower.POWER_ID))));
                 }
                 this.isDone = true;
             }

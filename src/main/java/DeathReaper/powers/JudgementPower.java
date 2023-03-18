@@ -1,24 +1,21 @@
 package DeathReaper.powers;
 
-import DeathReaper.DefaultMod;
+import DeathReaper.DeathReaperCore;
 import DeathReaper.util.TextureLoader;
-import basemod.interfaces.CloneablePowerInterface;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.megacrit.cardcrawl.cards.AbstractCard;
-import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 
-import static DeathReaper.DefaultMod.makePowerPath;
+import static DeathReaper.DeathReaperCore.makePowerPath;
 
 
 public class JudgementPower extends AbstractDeathReaperPower {
     public AbstractCreature source;
 
-    public static final String POWER_ID = DefaultMod.makeID("JudgementPower");
+    public static final String POWER_ID = DeathReaperCore.makeID("JudgementPower");
     private static final PowerStrings powerStrings = CardCrawlGame.languagePack.getPowerStrings(POWER_ID);
     public static final String NAME = powerStrings.NAME;
     public static final String[] DESCRIPTIONS = powerStrings.DESCRIPTIONS;

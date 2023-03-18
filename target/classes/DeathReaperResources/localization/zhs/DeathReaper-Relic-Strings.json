@@ -1,9 +1,9 @@
 {
   "DeathReaper:PlaceholderRelic": {
-    "NAME": "Placeholder Energy Relic",
-    "FLAVOR": "The snake is a friend.",
+    "NAME": "测试遗物",
+    "FLAVOR": "TEST",
     "DESCRIPTIONS": [
-      "Gain #b1 [E] ."
+      "战斗开始时获得 #b4 点 #ydr:威压 。"
     ]
   },
   "DeathReaper:PlaceholderRelic2": {

@@ -1,6 +1,6 @@
 package DeathReaper.util;
 
-import DeathReaper.DefaultMod;
+import DeathReaper.DeathReaperCore;
 import basemod.ReflectionHacks;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -41,7 +41,7 @@ public class BuryCardEffect extends AbstractGameEffect {
         }
         this.duration -= Gdx.graphics.getDeltaTime();
         if (!this.c.fadingOut && this.duration < 0.7F && !AbstractDungeon.player.hand.contains(this.c)) {
-            DefaultMod.logger.info(c.cardID + "!!!!!!!!!");
+            DeathReaperCore.logger.info(c.cardID + "!!!!!!!!!");
             this.c.fadingOut = true;
         }
         this.c.update();

@@ -27,7 +27,6 @@ public class DamageToJudgementPatch {
             AbstractDungeon.actionManager.addToTop(new ApplyPowerAction(mo, p,
                     new JudgementPower(mo, p, info.output)));
             info.output = 0;
-            info.type = DamageInfo.DamageType.THORNS;
         }
     }
 }

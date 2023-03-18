@@ -1,21 +1,26 @@
 package DeathReaper.powers;
 
-import DeathReaper.DefaultMod;
+import DeathReaper.DeathReaperCore;
+import DeathReaper.cards.AbstractDeathReaperCard;
 import DeathReaper.util.TextureLoader;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.megacrit.cardcrawl.actions.common.DrawCardAction;
+import com.megacrit.cardcrawl.actions.utility.UseCardAction;
+import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.PowerStrings;
+import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 
-import static DeathReaper.DefaultMod.makePowerPath;
+import static DeathReaper.DeathReaperCore.makePowerPath;
 
-public class DeathReaperPower extends AbstractPower {
+public class DeathReaperPower extends AbstractDeathReaperPower {
     public AbstractCreature source;
 
-    public static final String POWER_ID = DefaultMod.makeID("DeathReaperPower");
+    public static final String POWER_ID = DeathReaperCore.makeID("DeathReaperPower");
     private static final PowerStrings powerStrings = CardCrawlGame.languagePack.getPowerStrings(POWER_ID);
     public static final String NAME = powerStrings.NAME;
     public static final String[] DESCRIPTIONS = powerStrings.DESCRIPTIONS;
@@ -31,7 +36,6 @@ public class DeathReaperPower extends AbstractPower {
         ID = POWER_ID;
 
         this.owner = owner;
-        this.source = source;
 
         type = AbstractPower.PowerType.BUFF;
         isTurnBased = false;
@@ -41,6 +45,13 @@ public class DeathReaperPower extends AbstractPower {
         this.region48 = new TextureAtlas.AtlasRegion(tex32, 0, 0, 32, 32);
 
         updateDescription();
+    }
+
+    @Override
+    public void onUseCard(AbstractCard c, UseCardAction u) {
+        if (c.hasTag(AbstractDeathReaperCard.Enums.PREFIX)) {
+            this.addToBot(new DrawCardAction(1));
+        }
     }
 
     @Override

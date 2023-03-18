@@ -1,15 +1,13 @@
 package DeathReaper.powers;
 
-import DeathReaper.DefaultMod;
+import DeathReaper.DeathReaperCore;
 import DeathReaper.actions.ReckoningAction;
 import DeathReaper.characters.TheDeathReaper;
 import DeathReaper.util.TextureLoader;
-import basemod.interfaces.CloneablePowerInterface;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
-import com.megacrit.cardcrawl.cards.AbstractCard;
-import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
@@ -20,13 +18,13 @@ import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.powers.VulnerablePower;
 import com.megacrit.cardcrawl.powers.WeakPower;
 
-import static DeathReaper.DefaultMod.makePowerPath;
+import static DeathReaper.DeathReaperCore.makePowerPath;
 
 
 public class ShockingReckoningPower extends AbstractDeathReaperPower {
     public AbstractCreature source;
 
-    public static final String POWER_ID = DefaultMod.makeID("ShockingReckoningPower");
+    public static final String POWER_ID = DeathReaperCore.makeID("ShockingReckoningPower");
     private static final PowerStrings powerStrings = CardCrawlGame.languagePack.getPowerStrings(POWER_ID);
     public static final String NAME = powerStrings.NAME;
     public static final String[] DESCRIPTIONS = powerStrings.DESCRIPTIONS;
@@ -58,13 +56,19 @@ public class ShockingReckoningPower extends AbstractDeathReaperPower {
 
     @Override
     public void onTrigger(ReckoningAction action) {
-        int amt = TheDeathReaper.getRealPressure()/2;
         AbstractPlayer p = AbstractDungeon.player;
-        if (amt > 0) {
-            for (AbstractMonster mo : AbstractDungeon.getMonsters().monsters) {
-                action.actionQueue.add(new ApplyPowerAction(mo, p, new WeakPower(mo, amt, false)));
-                action.actionQueue.add(new ApplyPowerAction(mo, p, new VulnerablePower(mo, amt, false)));
-            }
+        for (AbstractMonster mo : AbstractDungeon.getMonsters().monsters) {
+            action.actionQueue.add(new AbstractGameAction() {
+                @Override
+                public void update() {
+                    int amt = Math.min(TheDeathReaper.getRealPressure()/2, ShockingReckoningPower.this.amount);
+                    if (amt > 0) {
+                        this.addToTop(new ApplyPowerAction(mo, p, new WeakPower(mo, amt, false)));
+                        this.addToTop(new ApplyPowerAction(mo, p, new VulnerablePower(mo, amt, false)));
+                    }
+                    this.isDone = true;
+                }
+            });
         }
     }
 

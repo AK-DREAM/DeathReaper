@@ -5,16 +5,13 @@
 
 package DeathReaper.util;
 
-import DeathReaper.DefaultMod;
-import DeathReaper.actions.CheckMaxPressureAction;
+import DeathReaper.DeathReaperCore;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
-import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
-import com.megacrit.cardcrawl.core.EnergyManager;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.FontHelper;
@@ -23,7 +20,8 @@ import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.helpers.TipHelper;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.rooms.AbstractRoom.RoomPhase;
-import sun.text.resources.cldr.ext.FormatData_zh_Hans_MO;
+
+import java.util.Set;
 
 public class PressureMeter {
     private Texture body;
@@ -40,6 +38,7 @@ public class PressureMeter {
     public static final String[] TEXT;
     public String name;
     public String description;
+    public boolean moveToMiddle = false;
 
 
     public PressureMeter() {
@@ -57,6 +56,8 @@ public class PressureMeter {
 
     public void update() {
         if (AbstractDungeon.getCurrRoom().phase == RoomPhase.COMBAT && !AbstractDungeon.isScreenUp) {
+            if (this.moveToMiddle) this.cX = 787.0F * Settings.scale;
+            else this.cX = 318.0F * Settings.scale;
             if (AbstractDungeon.player != null) {
                 this.hb.move(this.cX + this.hb.width / 2, this.cY + this.hb.height / 2);
             }
@@ -71,16 +72,16 @@ public class PressureMeter {
             timer += delta;
             if (timer > dur) {
                 timer = 0;
-                AbstractDungeon.effectsQueue.add(new PressureMeterEffect());
+                AbstractDungeon.effectsQueue.add(new PressureMeterEffect(moveToMiddle));
             }
-            timer2 += delta;
-            if (timer2 > 0.1F) {
-                timer2 = 0;
-                if (this.curProgress > 0.01F && this.curProgress < 0.99F && !this.isMoving()) {
-                    float t = 346.0F * this.curProgress;
-                    AbstractDungeon.effectsQueue.add(new PressureMeterEffect2(this.cX + t * Settings.scale, this.hb.cY));
-                }
-            }
+//            timer2 += delta;
+//            if (timer2 > 0.1F) {
+//                timer2 = 0;
+//                if (this.curProgress > 0.01F && this.curProgress < 0.99F && !this.isMoving()) {
+//                    float t = 346.0F * this.curProgress;
+//                    AbstractDungeon.effectsQueue.add(new PressureMeterEffect2(this.cX + t * Settings.scale, this.hb.cY));
+//                }
+//            }
         }
     }
 
@@ -122,14 +123,14 @@ public class PressureMeter {
         return Math.abs(curProgress-tarProgress) > 0.01F;
     }
 
-    public void atStartOfCombat() {
+    public void reset(int maxAmount) {
         this.amount = 0;
-        this.maxAmount = 6;
+        this.maxAmount = maxAmount;
     }
 
 
     static {
-        uiStrings = CardCrawlGame.languagePack.getUIString(DefaultMod.makeID("PressureMeter"));
+        uiStrings = CardCrawlGame.languagePack.getUIString(DeathReaperCore.makeID("PressureMeter"));
         TEXT = uiStrings.TEXT;
     }
 }

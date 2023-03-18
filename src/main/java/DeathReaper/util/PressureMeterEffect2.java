@@ -36,7 +36,7 @@ public class PressureMeterEffect2 extends AbstractGameEffect {
     public void update() {
         this.scale = Interpolation.bounceIn.apply(this.targetScale, 0.1F, this.duration / this.startingDuration);
         this.rotation += this.vX * this.startingDuration * Gdx.graphics.getDeltaTime();
-        this.color.a = this.duration / this.startingDuration;
+        this.color.a = this.duration / this.startingDuration * 0.5F;
         this.duration -= Gdx.graphics.getDeltaTime();
         if (TheDeathReaper.pressureMeter.isMoving() || this.duration < 0.0F) {
             this.isDone = true;
@@ -44,8 +44,10 @@ public class PressureMeterEffect2 extends AbstractGameEffect {
     }
 
     public void render(SpriteBatch sb) {
+        sb.setBlendFunction(770, 1);
         sb.setColor(this.color);
         sb.draw(img, this.x, this.y, (float)img.packedWidth / 2.0F, (float)img.packedHeight / 2.0F, (float)img.packedWidth, (float)img.packedHeight, this.scale*this.scaleJitter, this.scale*this.scaleJitter, this.rotation);
+        sb.setBlendFunction(770, 771);
     }
     public void dispose() {
     }

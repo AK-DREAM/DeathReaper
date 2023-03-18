@@ -1,6 +1,5 @@
 package DeathReaper.cards;
 
-import basemod.AutoAdd;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.animations.VFXAction;
 import com.megacrit.cardcrawl.actions.common.DamageAction;
@@ -11,15 +10,15 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import DeathReaper.characters.TheDeathReaper;
-import DeathReaper.DefaultMod;
+import DeathReaper.DeathReaperCore;
 import com.megacrit.cardcrawl.vfx.combat.CleaveEffect;
 
-import static DeathReaper.DefaultMod.makeCardPath;
+import static DeathReaper.DeathReaperCore.makeCardPath;
 
 public class SweepingScythe extends AbstractDynamicCard {
     // TEXT DECLARATION
 
-    public static final String ID = DefaultMod.makeID(SweepingScythe.class.getSimpleName());
+    public static final String ID = DeathReaperCore.makeID(SweepingScythe.class.getSimpleName());
     public static final String IMG = makeCardPath("Attack.png");
 
     // /TEXT DECLARATION/
@@ -30,7 +29,7 @@ public class SweepingScythe extends AbstractDynamicCard {
     private static final CardRarity RARITY = CardRarity.COMMON; //  Up to you, I like auto-complete on these
     private static final CardTarget TARGET = CardTarget.ALL_ENEMY;  //   since they don't change much.
     private static final CardType TYPE = CardType.ATTACK;       //
-    public static final CardColor COLOR = TheDeathReaper.Enums.COLOR_GRAY;
+    public static final CardColor COLOR = TheDeathReaper.Enums.DEATH_REAPER;
 
     private static final int COST = 1;
     private static final int UPGRADED_COST = 1;
@@ -61,7 +60,7 @@ public class SweepingScythe extends AbstractDynamicCard {
         for (AbstractMonster mo : AbstractDungeon.getMonsters().monsters) {
             if (!mo.isDeadOrEscaped() && mo.hasPower("DeathReaper:JudgementPower")) {
                 this.addToBot(
-                        new DamageAction(mo, new DamageInfo(p, 4, damageTypeForTurn), AbstractGameAction.AttackEffect.SLASH_HEAVY));
+                        new DamageAction(mo, new DamageInfo(p, 3, damageTypeForTurn), AbstractGameAction.AttackEffect.SLASH_HEAVY));
             }
         }
     }

@@ -1,31 +1,22 @@
 package DeathReaper.util;
 
-import DeathReaper.DefaultMod;
+import DeathReaper.DeathReaperCore;
 import DeathReaper.characters.TheDeathReaper;
 import basemod.ReflectionHacks;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
-import com.megacrit.cardcrawl.actions.GameActionManager;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
-import com.megacrit.cardcrawl.helpers.ScreenShake;
 import com.megacrit.cardcrawl.localization.UIStrings;
-import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.rooms.MonsterRoomBoss;
 import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
 import com.megacrit.cardcrawl.vfx.BorderLongFlashEffect;
-import com.megacrit.cardcrawl.vfx.UpgradeShineParticleEffect;
 import com.megacrit.cardcrawl.vfx.combat.GiantFireEffect;
-
-import java.util.Iterator;
 
 public class ReckoningEffect extends AbstractGameEffect {
     private static final UIStrings uiStrings;
@@ -104,7 +95,7 @@ public class ReckoningEffect extends AbstractGameEffect {
     }
 
     static {
-        uiStrings = CardCrawlGame.languagePack.getUIString(DefaultMod.makeID("ReckoningEffect"));
+        uiStrings = CardCrawlGame.languagePack.getUIString(DeathReaperCore.makeID("ReckoningEffect"));
         TEXT = uiStrings.TEXT;
         HEIGHT_DIV_2 = (float)Settings.HEIGHT / 2.0F;
         TARGET_HEIGHT = 150.0F * Settings.scale;

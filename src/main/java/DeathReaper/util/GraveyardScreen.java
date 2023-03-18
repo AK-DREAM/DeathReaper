@@ -1,7 +1,6 @@
 package DeathReaper.util;
 
-import DeathReaper.DefaultMod;
-import DeathReaper.characters.TheDeathReaper;
+import DeathReaper.DeathReaperCore;
 import basemod.abstracts.CustomScreen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -13,7 +12,6 @@ import com.megacrit.cardcrawl.cards.CardGroup.CardGroupType;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon.CurrentScreen;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.helpers.MathHelper;
 import com.megacrit.cardcrawl.helpers.controller.CInputHelper;
@@ -189,7 +187,7 @@ public class GraveyardScreen extends CustomScreen implements ScrollBarListener {
         AbstractDungeon.screen = Enum.GRAVEYARD_SCREEN;
         this.graveyardPileCopy.clear();
 
-        for (AbstractCard c : DefaultMod.graveyardPile.group) {
+        for (AbstractCard c : DeathReaperCore.graveyardPile.group) {
             AbstractCard toAdd = c.makeStatEquivalentCopy();
             toAdd.setAngle(0.0F, true);
             toAdd.targetDrawScale = 0.75F;
@@ -262,7 +260,7 @@ public class GraveyardScreen extends CustomScreen implements ScrollBarListener {
     }
 
     static {
-        uiStrings = CardCrawlGame.languagePack.getUIString(DefaultMod.makeID("Graveyard"));
+        uiStrings = CardCrawlGame.languagePack.getUIString(DeathReaperCore.makeID("Graveyard"));
         TEXT = uiStrings.TEXT;
         DESC = TEXT[2];
         SCROLL_BAR_THRESHOLD = 500.0F * Settings.scale;

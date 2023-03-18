@@ -1,7 +1,6 @@
 package DeathReaper.util;
 
-import DeathReaper.DefaultMod;
-import DeathReaper.characters.TheDeathReaper;
+import DeathReaper.DeathReaperCore;
 import basemod.ReflectionHacks;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -38,7 +37,7 @@ public class GraveyardPanel extends AbstractPanel {
     }
 
     public boolean notEmpty() {
-        return !DefaultMod.graveyardPile.isEmpty();
+        return !DeathReaperCore.graveyardPile.isEmpty();
     }
 
     public void updatePositions() {
@@ -93,7 +92,7 @@ public class GraveyardPanel extends AbstractPanel {
     public void render(SpriteBatch sb) {
         if (notEmpty()) {
             this.hb.move(this.current_x, this.current_y);
-            String msg = Integer.toString(DefaultMod.graveyardPile.size());
+            String msg = Integer.toString(DeathReaperCore.graveyardPile.size());
             sb.setColor(Settings.TWO_THIRDS_TRANSPARENT_BLACK_COLOR);
             sb.draw(ImageMaster.DECK_COUNT_CIRCLE, this.current_x - COUNT_CIRCLE_W / 2.0F, this.current_y - COUNT_CIRCLE_W / 2.0F, COUNT_CIRCLE_W, COUNT_CIRCLE_W);
             FontHelper.renderFontCentered(sb, FontHelper.turnNumFont, msg, this.current_x, this.current_y + 2.0F * Settings.scale, new Color(130/255.0F,185/255.0F,238/255.0F,1.0F));
@@ -105,7 +104,7 @@ public class GraveyardPanel extends AbstractPanel {
     }
 
     static {
-        uiStrings = CardCrawlGame.languagePack.getUIString(DefaultMod.makeID("Graveyard"));
+        uiStrings = CardCrawlGame.languagePack.getUIString(DeathReaperCore.makeID("Graveyard"));
         TEXT = uiStrings.TEXT;
         fontScale = 1.0F;
         COUNT_CIRCLE_W = 128.0F * Settings.scale;

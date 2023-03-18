@@ -1,7 +1,6 @@
 package DeathReaper.cards;
 
 import DeathReaper.powers.JudgementPower;
-import basemod.AutoAdd;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.DamageAction;
@@ -10,14 +9,14 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import DeathReaper.characters.TheDeathReaper;
-import DeathReaper.DefaultMod;
+import DeathReaper.DeathReaperCore;
 
-import static DeathReaper.DefaultMod.makeCardPath;
+import static DeathReaper.DeathReaperCore.makeCardPath;
 
 public class JusticeJudge extends AbstractDynamicCard {
     // TEXT DECLARATION
 
-    public static final String ID = DefaultMod.makeID(JusticeJudge.class.getSimpleName());
+    public static final String ID = DeathReaperCore.makeID(JusticeJudge.class.getSimpleName());
     public static final String IMG = makeCardPath("Attack.png");
 
     // /TEXT DECLARATION/
@@ -28,15 +27,13 @@ public class JusticeJudge extends AbstractDynamicCard {
     private static final CardRarity RARITY = CardRarity.COMMON; //  Up to you, I like auto-complete on these
     private static final CardTarget TARGET = CardTarget.ENEMY;  //   since they don't change much.
     private static final CardType TYPE = CardType.ATTACK;       //
-    public static final CardColor COLOR = TheDeathReaper.Enums.COLOR_GRAY;
+    public static final CardColor COLOR = TheDeathReaper.Enums.DEATH_REAPER;
 
     private static final int COST = 1;
     private static final int UPGRADED_COST = 1;
 
-    private static final int DAMAGE = 6;
-    private static final int UPGRADE_PLUS_DMG = 2;
-    private static final int MAGIC = 0;
-    private static final int UPGRADE_PLUS_MAGIC = 0;
+    private static final int DAMAGE = 8;
+    private static final int UPGRADE_PLUS_DMG = 3;
 
     // /STAT DECLARATION/
 

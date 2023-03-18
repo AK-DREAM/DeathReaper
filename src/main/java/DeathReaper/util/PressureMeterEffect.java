@@ -10,6 +10,8 @@ import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
 
+import java.util.Set;
+
 public class PressureMeterEffect extends AbstractGameEffect {
     private static final float EFFECT_DUR = 0.2F;
 
@@ -20,13 +22,16 @@ public class PressureMeterEffect extends AbstractGameEffect {
     private TextureAtlas.AtlasRegion img;
     private boolean isAdditive;
 
-    public PressureMeterEffect() {
+    public PressureMeterEffect(boolean moveToMiddle) {
         this.img = getImg();
         setPosition();
         this.x -= (this.img.packedWidth / 2.0F);
         this.y -= (this.img.packedHeight / 2.0F);
         this.x += MathUtils.random(-5.0F*Settings.scale, 5.0F*Settings.scale);
         this.y += MathUtils.random(-5.0F*Settings.scale, 5.0F*Settings.scale);
+
+        if (moveToMiddle) this.x += 469.0F * Settings.scale;
+
         this.effectDuration = MathUtils.random(0.8F, 1.8F);
         this.duration = this.effectDuration;
         this.startingDuration = this.effectDuration;

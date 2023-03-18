@@ -1,6 +1,6 @@
 package DeathReaper.actions;
 
-import DeathReaper.DefaultMod;
+import DeathReaper.DeathReaperCore;
 import DeathReaper.cards.AbstractDeathReaperCard;
 import DeathReaper.powers.AbstractDeathReaperPower;
 import com.megacrit.cardcrawl.cards.AbstractCard;
@@ -21,28 +21,21 @@ public class MyExhumeAction extends MyMoveCardsAction {
                         .forEach(pw -> {
                             ((AbstractDeathReaperPower)pw).onExhume(c);
                         });
-                DefaultMod.graveyardPile.group.stream()
-                        .filter(card -> card instanceof AbstractDeathReaperCard)
-                        .forEach(card -> {
-                            ((AbstractDeathReaperCard)card).onOtherCardsExhume();
-                        });
             }
         }
     };
     public MyExhumeAction(int amount, boolean isRandom, Predicate<AbstractCard> predicate, Consumer<List<AbstractCard> > callback) {
-        super(AbstractDungeon.player.hand, DefaultMod.graveyardPile, amount, isRandom,
-                predicate, triggerExhume.andThen(callback)
+        super(AbstractDungeon.player.hand, DeathReaperCore.graveyardPile, amount, isRandom,
+                predicate, callback==null?triggerExhume:triggerExhume.andThen(callback)
         );
     }
     public MyExhumeAction(int amount, boolean isRandom, Predicate<AbstractCard> predicate) {
-        super(AbstractDungeon.player.hand, DefaultMod.graveyardPile, amount, isRandom,
-                predicate, triggerExhume
-        );
+        this(amount, isRandom, predicate, null);
     }
     public MyExhumeAction(int amount, boolean isRandom) {
-        super(AbstractDungeon.player.hand, DefaultMod.graveyardPile, amount, isRandom, card->true);
+        this(amount, isRandom, card->true);
     }
     public MyExhumeAction(List<AbstractCard> toMove) {
-        super(AbstractDungeon.player.hand, DefaultMod.graveyardPile, toMove, triggerExhume);
+        super(AbstractDungeon.player.hand, DeathReaperCore.graveyardPile, toMove, triggerExhume);
     }
 }

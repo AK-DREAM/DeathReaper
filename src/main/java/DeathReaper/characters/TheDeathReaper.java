@@ -4,10 +4,12 @@ import DeathReaper.actions.MyMoveCardsAction;
 import DeathReaper.actions.ReckoningAction;
 import DeathReaper.powers.AbstractDeathReaperPower;
 import DeathReaper.powers.DeathReaperPower;
-import DeathReaper.util.GraveyardPanel;
+import DeathReaper.powers.JudgementPower;
+import DeathReaper.relics.PlaceholderRelic;
 import DeathReaper.util.PressureMeter;
-import DeathReaper.util.ShowPrefixEffect;
 import basemod.abstracts.CustomPlayer;
+import basemod.abstracts.CustomSavable;
+import basemod.animations.AbstractAnimation;
 import basemod.animations.SpriterAnimation;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -16,12 +18,8 @@ import com.badlogic.gdx.math.MathUtils;
 import com.esotericsoftware.spine.AnimationState;
 import com.evacipated.cardcrawl.modthespire.lib.SpireEnum;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
-import com.megacrit.cardcrawl.actions.animations.VFXAction;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
-import com.megacrit.cardcrawl.actions.utility.WaitAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
-import com.megacrit.cardcrawl.cards.CardGroup;
-import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
@@ -32,31 +30,26 @@ import com.megacrit.cardcrawl.helpers.CardLibrary;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.helpers.ScreenShake;
 import com.megacrit.cardcrawl.localization.CharacterStrings;
+import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.monsters.ending.SpireShield;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.screens.CharSelectInfo;
-import com.megacrit.cardcrawl.unlock.UnlockTracker;
-import com.megacrit.cardcrawl.vfx.combat.PowerBuffEffect;
-import com.megacrit.cardcrawl.vfx.combat.ScreenOnFireEffect;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import DeathReaper.DefaultMod;
+import DeathReaper.DeathReaperCore;
 import DeathReaper.cards.*;
-import DeathReaper.relics.DefaultClickableRelic;
-import DeathReaper.relics.PlaceholderRelic;
-import DeathReaper.relics.PlaceholderRelic2;
 
 import java.util.ArrayList;
-import java.util.Set;
 
-import static DeathReaper.DefaultMod.*;
-import static DeathReaper.characters.TheDeathReaper.Enums.COLOR_GRAY;
+import static DeathReaper.DeathReaperCore.*;
+import static DeathReaper.characters.TheDeathReaper.Enums.DEATH_REAPER;
 
 //Wiki-page https://github.com/daviscook477/BaseMod/wiki/Custom-Characters
 //and https://github.com/daviscook477/BaseMod/wiki/Migrating-to-5.0
 //All text (starting description and loadout, anything labeled TEXT[]) can be found in DefaultMod-character-Strings.json in the resources
 
-public class TheDeathReaper extends CustomPlayer {
-    public static final Logger logger = LogManager.getLogger(DefaultMod.class.getName());
+public class TheDeathReaper extends CustomPlayer implements CustomSavable<Integer> {
+    public static final Logger logger = LogManager.getLogger(DeathReaperCore.class.getName());
 
     // =============== CHARACTER ENUMERATORS =================
     // These are enums for your Characters color (both general color and for the card library) as well as
@@ -67,10 +60,10 @@ public class TheDeathReaper extends CustomPlayer {
 
     public static class Enums {
         @SpireEnum
-        public static AbstractPlayer.PlayerClass THE_DEFAULT;
-        @SpireEnum(name = "DEFAULT_GRAY_COLOR") // These two HAVE to have the same absolutely identical name.
-        public static AbstractCard.CardColor COLOR_GRAY;
-        @SpireEnum(name = "DEFAULT_GRAY_COLOR") @SuppressWarnings("unused")
+        public static AbstractPlayer.PlayerClass THE_DEATH_REAPER;
+        @SpireEnum(name = "DEATH_REAPER_COLOR") // These two HAVE to have the same absolutely identical name.
+        public static AbstractCard.CardColor DEATH_REAPER;
+        @SpireEnum(name = "DEATH_REAPER_COLOR") @SuppressWarnings("unused")
         public static CardLibrary.LibraryType LIBRARY_COLOR;
     }
 
@@ -80,8 +73,8 @@ public class TheDeathReaper extends CustomPlayer {
     // =============== BASE STATS =================
 
     public static final int ENERGY_PER_TURN = 3;
-    public static final int STARTING_HP = 75;
-    public static final int MAX_HP = 75;
+    public static final int STARTING_HP = 70;
+    public static final int MAX_HP = 70;
     public static final int STARTING_GOLD = 99;
     public static final int CARD_DRAW = 5;
     public static final int ORB_SLOTS = 0;
@@ -91,10 +84,13 @@ public class TheDeathReaper extends CustomPlayer {
 
     // =============== STRINGS =================
 
-    private static final String ID = makeID("DefaultCharacter");
+    private static final String ID = makeID("TheDeathReaper");
     private static final CharacterStrings characterStrings = CardCrawlGame.languagePack.getCharacterString(ID);
     private static final String[] NAMES = characterStrings.NAMES;
     private static final String[] TEXT = characterStrings.TEXT;
+
+    private final SpriterAnimation eyeAnimation = new SpriterAnimation(
+            "DeathReaperResources/images/char/defaultCharacter/Spriter2/EyeAnimation.scml");
 
     // =============== /STRINGS/ =================
 
@@ -122,7 +118,7 @@ public class TheDeathReaper extends CustomPlayer {
         super(name, setClass, orbTextures,
                 "DeathReaperResources/images/char/defaultCharacter/orb/vfx.png", null,
                 new SpriterAnimation(
-                        "DeathReaperResources/images/char/defaultCharacter/Spriter/theDefaultAnimation.scml"));
+                        "DeathReaperResources/images/char/defaultCharacter/Spriter2/DeathReaper.scml"));
 
 
         // =============== TEXTURES, ENERGY, LOADOUT =================  
@@ -185,7 +181,7 @@ public class TheDeathReaper extends CustomPlayer {
     // Starting Relics	
     public ArrayList<String> getStartingRelics() {
         ArrayList<String> retVal = new ArrayList<>();
-
+        retVal.add(PlaceholderRelic.ID);
 
         return retVal;
     }
@@ -208,19 +204,19 @@ public class TheDeathReaper extends CustomPlayer {
     // Ascension 14 or higher. (ironclad loses 5, defect and silent lose 4 hp respectively)
     @Override
     public int getAscensionMaxHPLoss() {
-        return 0;
+        return 4;
     }
 
     // Should return the card color enum to be associated with your character.
     @Override
     public AbstractCard.CardColor getCardColor() {
-        return COLOR_GRAY;
+        return DEATH_REAPER;
     }
 
     // Should return a color object to be used to color the trail of moving cards
     @Override
     public Color getCardTrailColor() {
-        return DeathReaper.DefaultMod.DEFAULT_GRAY;
+        return DeathReaperCore.DEFAULT_GRAY;
     }
 
     // Should return a BitmapFont object that you can use to customize how your
@@ -239,7 +235,7 @@ public class TheDeathReaper extends CustomPlayer {
     //Which card should be obtainable from the Match and Keep event?
     @Override
     public AbstractCard getStartCardForEvent() {
-        return new DefaultCommonAttack();
+        return new ShadowCloak();
     }
 
     // The class name as it appears next to your player name in-game
@@ -257,14 +253,14 @@ public class TheDeathReaper extends CustomPlayer {
     // Should return a Color object to be used to color the miniature card images in run history.
     @Override
     public Color getCardRenderColor() {
-        return DeathReaper.DefaultMod.DEFAULT_GRAY;
+        return DeathReaperCore.DEFAULT_GRAY;
     }
 
     // Should return a Color object to be used as screen tint effect when your
     // character attacks the heart.
     @Override
     public Color getSlashAttackColor() {
-        return DeathReaper.DefaultMod.DEFAULT_GRAY;
+        return DeathReaperCore.DEFAULT_GRAY;
     }
 
     // Should return an AttackEffect array of any size greater than 0. These effects
@@ -297,6 +293,15 @@ public class TheDeathReaper extends CustomPlayer {
     // Death Reaper!
 
     public static PressureMeter pressureMeter = new PressureMeter();
+    public int masterMaxPressure = 6;
+
+    @Override
+    public Integer onSave() { return this.masterMaxPressure; }
+
+    @Override
+    public void onLoad(Integer maxPressure) {
+        this.masterMaxPressure = maxPressure;
+    }
 
     @Override
     public void render(SpriteBatch sb) {
@@ -311,34 +316,40 @@ public class TheDeathReaper extends CustomPlayer {
     @Override
     public void applyPreCombatLogic() {
         super.applyPreCombatLogic();
-        pressureMeter.atStartOfCombat();
+        pressureMeter.reset(this.masterMaxPressure);
+        boolean isSpireShield = AbstractDungeon.getMonsters().monsters.stream().anyMatch(m -> SpireShield.ID.equals(m.id));
+        pressureMeter.moveToMiddle = isSpireShield;
         AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(this, this, new DeathReaperPower(this)));
+    }
+    @Override
+    public void onVictory() {
+        super.onVictory();
+        pressureMeter.reset(this.masterMaxPressure);
     }
 
     @Override
     public void applyEndOfTurnTriggers() {
-        AbstractDungeon.actionManager.addToBottom(new MyMoveCardsAction(this.discardPile, graveyardPile, 1, false));
+//        AbstractDungeon.actionManager.addToBottom(new MyMoveCardsAction(this.discardPile, graveyardPile, 1, false));
         AbstractDungeon.actionManager.addToBottom(new ReckoningAction());
         super.applyEndOfTurnTriggers();
     }
 
-    public int calcJudgementDamage(AbstractCreature mo) {
-        if (!mo.hasPower("DeathReaper:JudgementPower")) return 0;
-        float _dmg = (float)mo.getPower("DeathReaper:JudgementPower").amount;
+    public static int calcJudgementDamage(AbstractCreature mo) {
+        float _dmg = DeathReaperCore.getPowerAmount(mo, JudgementPower.POWER_ID);
         _dmg = _dmg * (1.0F+0.1F*getRealPressure());
-        for (AbstractPower pw : this.powers) {
-            if (pw instanceof AbstractDeathReaperPower)
-                _dmg = ((AbstractDeathReaperPower) pw).JudgementModify(_dmg);
-        }
         return MathUtils.floor(_dmg);
     }
-    public int calcReckoningBlock() {
-        float blk = getRealPressure();
-        for (AbstractPower pw : this.powers) {
-            if (pw instanceof AbstractDeathReaperPower)
-                blk = ((AbstractDeathReaperPower) pw).BlockModify(blk);
+
+    @Override
+    public void renderPlayerImage(SpriteBatch sb) {
+        super.renderPlayerImage(sb);
+        if (getRealPressure() == getMaxPressure()) {
+            int tme = ((SpriterAnimation)this.animation).myPlayer.getFirstPlayer().getTime();
+            this.eyeAnimation.myPlayer.getFirstPlayer().setTime(tme);
+            this.eyeAnimation.myPlayer.getSecondPlayer().setTime(tme);
+            this.eyeAnimation.setFlip(this.flipHorizontal, this.flipVertical);
+            this.eyeAnimation.renderSprite(sb, this.drawX + this.animX, this.drawY + this.animY + AbstractDungeon.sceneOffsetY);
         }
-        return MathUtils.floor(blk);
     }
 
     public static void setPressure(int amt) { pressureMeter.setAmount(amt); }

@@ -1,55 +1,4 @@
 {
-  "DeathReaper:DefaultCommonAttack": {
-    "NAME": "Strike",
-    "DESCRIPTION": "Deal !D! damage. NL [#0000ff]This[] [#ff0000]Is[] [#ffff00]How[] [#88888]color[] [#ff00ff]works.[]"
-  },
-  "DeathReaper:DefaultCommonSkill": {
-    "NAME": "Defend",
-    "DESCRIPTION": "Gain !B! Block. NL dr:Multiword_Keyword."
-  },
-  "DeathReaper:DefaultCommonPower": {
-    "NAME": "Hold Place",
-    "DESCRIPTION": "Gain !M! dr:Keyword.",
-    "UPGRADE_DESCRIPTION": "Gain !M! dr:Keywords."
-  },
-  "DeathReaper:DefaultUncommonAttack": {
-    "NAME": "Big slap",
-    "DESCRIPTION": "Deal !D! damage."
-  },
-  "DeathReaper:DefaultUncommonSkill": {
-    "NAME": "A Better Defend",
-    "DESCRIPTION": "Gain !B! Plated Armor. Affected by Dexterity."
-  },
-  "DeathReaper:DefaultUncommonPower": {
-    "NAME": "Weirdness",
-    "DESCRIPTION": "Gain X dr:Keywords.",
-    "UPGRADE_DESCRIPTION": "Gain X +1 dr:Keywords."
-  },
-  "DeathReaper:DefaultRareAttack": {
-    "NAME": "TOUCH",
-    "DESCRIPTION": "Deal !D! damage."
-  },
-  "DeathReaper:DefaultRareSkill": {
-    "NAME": "For Each Loop x2",
-    "DESCRIPTION": "Apply !M! Vulnerable to all enemies, 2 times.",
-    "UPGRADE_DESCRIPTION": "Apply !M! Vulnerable to all enemies, 3 times."
-  },
-  "DeathReaper:DefaultRarePower": {
-    "NAME": "In-Progress Form",
-    "DESCRIPTION": "At the start of your turn, play a TOUCH."
-  },
-  "DeathReaper:DefaultAttackWithVariable": {
-    "NAME": "Special Strike",
-    "DESCRIPTION": "Deal !D! damage [E] times. NL (Deal !DeathReaper:ENERGY_DAMAGE! damage total.)"
-  },
-  "DeathReaper:DefaultSecondMagicNumberSkill": {
-    "NAME": "Cool 2 Number Card",
-    "DESCRIPTION": "Apply !M! Vulnerable and !DeathReaper:SecondMagic! poison to an enemy."
-  },
-  "DeathReaper:OrbSkill": {
-    "NAME": "Get Orb",
-    "DESCRIPTION": "Channel 1 Default Orb."
-  },
   "DeathReaper:Strike": {
     "NAME": "打击",
     "DESCRIPTION": "造成 !D! 点伤害。"
@@ -74,42 +23,34 @@
     "NAME": "定罪",
     "DESCRIPTION": "造成 !D! 点伤害。若目标没有 dr:审判 ，再造成一次 !D! 点伤害。"
   },
-  "DeathReaper:CursedScythe": {
-    "NAME": "咒怨之镰",
-    "DESCRIPTION": " 保留 。造成 !D! 点伤害。回合结束时每点 dr:威压 使此牌伤害增加 !M! 。"
-  },
-  "DeathReaper:Invisible": {
-    "NAME": "隐身",
+  "DeathReaper:Pursuit": {
+    "NAME": "追击",
     "DESCRIPTION": "抽 2 张牌。获得 !B! 点格挡和 !M! 点 dr:威压 。"
   },
   "DeathReaper:SoulGathering": {
     "NAME": "聚魂",
-    "DESCRIPTION": "获得 [E] [E] 。 NL dr:埋葬 。"
+    "DESCRIPTION": "获得 [E] [E] 并将一张 *晕眩 加入弃牌堆。 NL dr:埋葬 。",
+    "UPGRADE_DESCRIPTION": "获得 [E] [E] [E] 并将一张 *晕眩 加入弃牌堆。 NL dr:埋葬 。"
   },
   "DeathReaper:ShockingReckoning": {
     "NAME": "震慑清算",
-    "DESCRIPTION": " dr:修饰语 。本回合 dr:清算 时，每有 !M! 点 dr:威压 ，给予所有敌人1层 易伤 和 虚弱 。 NL dr:埋葬 。"
+    "DESCRIPTION": " dr:修饰语 。 NL 本回合 dr:清算 时，每有3点 dr:威压 ，给予所有敌人1层 易伤 和 虚弱 (最多 !M! 层)。 NL dr:埋葬 。"
   },
   "DeathReaper:DeadRevenge": {
     "NAME": "复仇亡魂",
-    "DESCRIPTION": "造成 !D! 点伤害。打出时耗能增加1。被 dr:发掘 时耗能变为 0 。 NL dr:埋葬 。"
+    "DESCRIPTION": "造成 !D! 点伤害，给予 !M! 层 易伤 。 NL dr:埋葬 。"
   },
   "DeathReaper:SweepingScythe": {
     "NAME": "横扫之镰",
-    "DESCRIPTION": "对所有敌人造成 !D! 点伤害 !M! 次。 NL 对已经有 dr:审判 的敌人再造成一次 4 点伤害。"
+    "DESCRIPTION": "对所有敌人造成 !D! 点伤害 !M! 次。 NL 对已经有 dr:审判 的敌人再造成一次 3 点伤害。"
   },
   "DeathReaper:ThroughTheWall": {
     "NAME": "穿墙而过",
-    "DESCRIPTION": "造成 !D! 点伤害。 NL 若 dr:威压 未达到上限，获得 !M! 点 dr:威压 ，否则抽2张牌。"
+    "DESCRIPTION": "造成 !D! 点伤害，获得 !M! 点 dr:威压 。 NL 若 dr:威压 大于等于 6 点 ，抽 2 张牌。"
   },
-  "DeathReaper:ShareGuilt": {
-    "NAME": "分担罪责",
+  "DeathReaper:ScytheDance": {
+    "NAME": "镰刀乱舞",
     "DESCRIPTION": "重复 !M! 次，每次对 dr:审判 最少的敌人造成 !D! 点伤害。"
-  },
-  "DeathReaper:Cremation": {
-    "NAME": "火葬",
-    "DESCRIPTION": "选择任意张手牌来 dr:埋葬 ，每 dr:埋葬 一张造成一次 !D! 点伤害并获得 !M! 点 dr:威压 。",
-    "EXTENDED_DESCRIPTION": ["选择任意张手牌来 埋葬 。"]
   },
   "DeathReaper:GraveDigger": {
     "NAME": "掘墓者",
@@ -119,40 +60,30 @@
     "NAME": "恐吓",
     "DESCRIPTION": "对所有敌人造成 !D! 点伤害并使所有敌人失去 !M! 点 力量 。 NL dr:埋葬 。"
   },
-  "DeathReaper:SummonRaven": {
-    "NAME": "渡鸦召唤",
-    "DESCRIPTION": "造成 !D! 点伤害。 dr:埋葬 。 NL dr:发掘 一张牌时，同样将此牌 dr:发掘 。"
-  },
-  "DeathReaper:WipeOut": {
-    "NAME": "一笔勾销",
-    "DESCRIPTION": "目标失去等同于 dr:审判 层数的生命。 NL dr:埋葬 。",
-    "EXTENDED_DESCRIPTION": [" NL (造成 ", " 点伤害。)"]
-  },
   "DeathReaper:Reincarnation": {
     "NAME": "轮回",
     "DESCRIPTION": "造成 !D! 点伤害 !M! 次。每打出一次，攻击次数增加1。 NL dr:埋葬 。"
   },
   "DeathReaper:SummonDead": {
     "NAME": "亡灵召唤",
-    "DESCRIPTION": "造成 !D! 点伤害。 NL dr:发掘 !M! 张随机牌。"
+    "DESCRIPTION": "造成 !D! 点伤害并抽 1 张牌。 NL dr:发掘 1 张牌。"
   },
   "DeathReaper:WraithReturn": {
     "NAME": "恶灵回魂",
-    "DESCRIPTION": "造成 !D! 点伤害。 NL dr:发掘 所有 0 耗能牌。"
+    "DESCRIPTION": "造成 !D! 点伤害。 NL dr:发掘 随机 !M! 张 0 耗能牌。"
   },
   "DeathReaper:PlagueIncarnate": {
     "NAME": "瘟疫化身",
     "DESCRIPTION": "造成 !D! 点伤害。目标获得等同于其 dr:审判 层数的 中毒 。 NL 消耗 。"
   },
-  "DeathReaper:Sacrifice": {
-    "NAME": "献祭",
-    "DESCRIPTION": "埋葬一张随机手牌。获得 !M! 点 dr:威压 。",
-    "UPGRADE_DESCRIPTION": "埋葬一张手牌。获得 !M! 点 dr:威压 。",
-    "EXTENDED_DESCRIPTION": ["选择一张手牌来 埋葬 。"]
+  "DeathReaper:DeathApproach": {
+    "NAME": "死亡逼近",
+    "DESCRIPTION": "获得 !M! 点 dr:威压 。抽 1 张牌。"
   },
   "DeathReaper:Whisper": {
     "NAME": "低语",
-    "DESCRIPTION": "抽 1 张牌。获得 !M! 点 dr:威压 。 NL 你打出的下一张牌将被 dr:埋葬 。"
+    "DESCRIPTION": "抽 !M! 张牌。 dr:发掘 !M! 张随机牌。 NL 消耗 。",
+    "UPGRADE_DESCRIPTION": "抽 !M! 张牌。 dr:发掘 !M! 张随机牌。"
   },
   "DeathReaper:LeafThrough": {
     "NAME": "翻阅",
@@ -160,6 +91,266 @@
   },
   "DeathReaper:SoulFire": {
     "NAME": "灵魂火",
-    "DESCRIPTION": "不能被打出 。 NL 抽到此牌时立即将此牌 dr:埋葬 ，然后抽 !M! 张牌。"
+    "DESCRIPTION": " 抽 !M! 张牌。 dr:埋葬 。",
+    "UPGRADE_DESCRIPTION": "抽 !M! 张牌。 dr:埋葬 。"
+  },
+  "DeathReaper:DeathBell": {
+    "NAME": "死亡之铃",
+    "DESCRIPTION": " 随机 dr:发掘 !M! 张牌， dr:发掘 的牌本回合耗能为 0 。",
+    "UPGRADE_DESCRIPTION": " dr:发掘 !M! 张牌， dr:发掘 的牌本回合耗能为 0 。"
+  },
+  "DeathReaper:UltimateWield": {
+    "NAME": "终极收割",
+    "DESCRIPTION": "造成 !D! 点伤害。 NL 每有1层 dr:威压 使此伤害增加 10% 。"
+  },
+  "DeathReaper:CursedScythe": {
+    "NAME": "咒怨之镰",
+    "DESCRIPTION": "造成 !D! 点伤害。 NL dr:埋葬 一张牌时，此牌本回合耗能减少 1 。"
+  },
+  "DeathReaper:DoubleJudgement": {
+    "NAME": "双倍审判",
+    "DESCRIPTION": "使目标的 dr:审判 翻倍(最多增加 !M! 点)。 NL dr:埋葬 。"
+  },
+  "DeathReaper:Zoom": {
+    "NAME": "急速移动",
+    "DESCRIPTION": "抽2X-1张牌，每抽到1张技能牌就获得 [E] 。 NL 消耗 。",
+    "UPGRADE_DESCRIPTION": "抽2X张牌，每抽到1张技能牌就获得 [E] 。 NL 消耗 。"
+  },
+  "DeathReaper:DeathAppear": {
+    "NAME": "死神现形",
+    "DESCRIPTION": "增加 !M! 点 dr:威压 上限并将 dr:威压 增加至上限。本回合不再能获得 dr:威压 。 NL  dr:埋葬 。",
+    "UPGRADE_DESCRIPTION": "增加 !M! 点 dr:威压 上限并将 dr:威压 增加至上限。本回合不再能获得 dr:威压 。 NL  dr:埋葬 。"
+  },
+  "DeathReaper:ShadowOfFear": {
+    "NAME": "恐惧之影",
+    "DESCRIPTION": "获得 !B! 点 格挡 并抽 1 张牌。  NL dr:埋葬 。"
+  },
+  "DeathReaper:Doomsday": {
+    "NAME": "审判日",
+    "DESCRIPTION": " 保留 。 NL 增加 !M! 点 dr:威压 上限并将 dr:威压 增加到上限。下回合开始时死亡。 NL 消耗 。"
+  },
+  "DeathReaper:ImmortalSoul": {
+    "NAME": "不朽之魂",
+    "DESCRIPTION": "获得等同于 dr:威压 上限的 临时生命值 。 NL 战斗开始时位于 dr:墓地 。 NL 消耗 。",
+    "UPGRADE_DESCRIPTION": "增加 2 点 dr:威压 上限并获得等同于 dr:威压 上限的 临时生命值 。 NL 战斗开始时位于 dr:墓地 。 NL 消耗 。"
+  },
+  "DeathReaper:DeathTouch": {
+    "NAME": "死亡触碰",
+    "DESCRIPTION": "造成 !D! 点伤害。 NL 若 dr:威压 大于等于 6，获得 [E] 并抽 1 张牌。"
+  },
+  "DeathReaper:FlamingScythe": {
+    "NAME": "燃烧之镰",
+    "DESCRIPTION": "造成 !D! 点伤害。 NL 若 dr:威压 已达到上限，增加 !M! 点 dr:威压 上限。 NL dr:埋葬 。"
+  },
+  "DeathReaper:ScytheWave": {
+    "NAME": "铁镰斩",
+    "DESCRIPTION": "造成 !D! 点伤害。 NL 获得等同于目标 dr:审判 层数的格挡。 NL dr:埋葬 。"
+  },
+  "DeathReaper:DeathLink": {
+    "NAME": "死亡链接",
+    "DESCRIPTION": "选择一名敌人，每当该敌人攻击时，该敌人获得等同于伤害的 dr:审判 。 NL 消耗 。"
+  },
+  "DeathReaper:UnstoppableReckoning": {
+    "NAME": "不朽清算",
+    "DESCRIPTION": " dr:修饰语 。 NL 本回合 dr:清算 时，多获得 !M! 次等同于 dr:威压 的 格挡 。"
+  },
+  "DeathReaper:AbsorbingReckoning": {
+    "NAME": "收割清算",
+    "DESCRIPTION": " dr:修饰语 。 虚无 。 NL 本回合 dr:清算 时，回复等同于 dr:威压 的生命。 NL 消耗 。",
+    "UPGRADE_DESCRIPTION": " dr:修饰语 。 NL 本回合 dr:清算 时，回复等同于 dr:威压 的生命。 NL 消耗 。"
+  },
+  "DeathReaper:BrutalReckoning": {
+    "NAME": "残暴清算",
+    "DESCRIPTION": " dr:修饰语 。 NL 本回合 dr:清算 时，对所有敌人造成等同于 dr:威压 的伤害 !M! 次。 NL dr:埋葬 。"
+  },
+  "DeathReaper:PerfectReckoning": {
+    "NAME": "完美清算",
+    "DESCRIPTION": " dr:修饰语 。 NL 本回合 dr:清算 时，每有一种 dr:修饰语 就获得 !M! 点 dr:威压 。"
+  },
+  "DeathReaper:DeathProphecy": {
+    "NAME": "死亡预言",
+    "DESCRIPTION": " 预见 抽牌堆的所有牌。 NL 消耗 。"
+  },
+  "DeathReaper:IntangibleBody": {
+    "NAME": "灵体化",
+    "DESCRIPTION": "获得1层 无实体 。 NL 消耗 。 NL 虚无 。",
+    "UPGRADE_DESCRIPTION": "获得1层 无实体 。 NL 被 dr:埋葬 时耗能增加 1。 NL dr:埋葬 。 NL 虚无 。"
+  },
+  "DeathReaper:DarkMagicCircle": {
+    "NAME": "暗黑法阵",
+    "DESCRIPTION": "将一张 dr:临时 的随机 dr:修饰语 牌加入手牌。 NL 获得 !M! 点 dr:威压 。",
+    "UPGRADE_DESCRIPTION": "将一张 dr:临时 的 升级 的随机 dr:修饰语 牌加入手牌。 NL 获得 !M! 点 dr:威压 。"
+  },
+  "DeathReaper:Enlarge": {
+    "NAME": "巨大化",
+    "DESCRIPTION": "增加 !M! 点 dr:威压 上限。"
+  },
+  "DeathReaper:Burier": {
+    "NAME": "埋葬者",
+    "DESCRIPTION": "你每 dr:埋葬 一张牌，获得 !M! 点 dr:威压 。",
+    "UPGRADE_DESCRIPTION": "你每 dr:埋葬 一张牌，获得 !M! 点 dr:威压 和 2 点 格挡 。"
+  },
+  "DeathReaper:LevitatedMove": {
+    "NAME": "飘浮疾行",
+    "DESCRIPTION": "你每 dr:埋葬 一张牌 ，抽 !M! 张牌。"
+  },
+  "DeathReaper:Chill": {
+    "NAME": "寒意",
+    "DESCRIPTION": "每回合开始时，获得 !M! 点 dr:威压 。"
+  },
+  "DeathReaper:Ritual": {
+    "NAME": "仪式",
+    "DESCRIPTION": "回合开始时将 !M! 张随机的 dr:临时 dr:修饰语 牌加入手牌。",
+    "UPGRADE_DESCRIPTION": "回合开始时将 !M! 张随机的 升级 的 dr:临时 dr:修饰语 牌加入手牌。"
+  },
+  "DeathReaper:Ravens": {
+    "NAME": "鸦群",
+    "DESCRIPTION": "每回合开始时， dr:发掘 !M! 张牌。",
+    "UPGRADE_DESCRIPTION": " 固有 。 NL 每回合开始时， dr:发掘 !M! 张牌。"
+  },
+  "DeathReaper:EnergyDrain": {
+    "NAME": "能量吸收",
+    "DESCRIPTION": "回合结束时，若有剩余 [E] ，消耗 [E] 并增加 !M! 点 dr:威压 上限。"
+  },
+  "DeathReaper:Invisible": {
+    "NAME": "隐身",
+    "DESCRIPTION": "获得 !B! 点格挡。 NL 下回合开始时获得 [E] 并 dr:发掘 !M! 张牌。",
+    "UPGRADE_DESCRIPTION": "获得 !B! 点格挡。 NL 下回合开始时获得 [E] [E] 并 dr:发掘 2 张牌。"
+  },
+  "DeathReaper:SoulReap": {
+    "NAME": "灵魂收割",
+    "DESCRIPTION": "造成 !D! 点伤害。 NL 若目标的意图是攻击则给予 !M! 层 虚弱 ，否则给予 !M! 层 易伤 。"
+  },
+  "DeathReaper:HorribleReckoning": {
+    "NAME": "恐怖清算",
+    "DESCRIPTION": "本回合 dr:清算 时，使所有敌人在本回合失去等同于 dr:威压 的力量。 NL 消耗 。",
+    "UPGRADE_DESCRIPTION": " 保留 。本回合 dr:清算 时，使所有敌人在本回合失去等同于 dr:威压 的力量。 NL 消耗 。"
+  },
+  "DeathReaper:Cloning": {
+    "NAME": "分身术",
+    "DESCRIPTION": "获得 !M! 点 敏捷 。",
+    "UPGRADE_DESCRIPTION": "获得 !M! 点 敏捷 。 NL 打出后将此牌 dr:埋葬 。"
+  },
+  "DeathReaper:Tombstone": {
+    "NAME": "墓碑",
+    "DESCRIPTION": "当你打出能力牌时，将其 dr:埋葬 而非直接移除。",
+    "UPGRADE_DESCRIPTION": " 固有 。 NL 当你打出能力牌时，将其 dr:埋葬 而非直接移除。"
+  },
+  "DeathReaper:ReaperForm": {
+    "NAME": "收割形态",
+    "DESCRIPTION": "只需要 2 点超出上限的 dr:威压 即可使 dr:威压 上限增加 1。 NL 虚无 。",
+    "UPGRADE_DESCRIPTION": "只需要 2 点超出上限的 dr:威压 即可使 dr:威压 上限增加 1。"
+  },
+  "DeathReaper:DemonScythe": {
+    "NAME": "恶魔镰刀",
+    "DESCRIPTION": "造成 !D! 点伤害并抽 !M! 张牌，抽到的攻击牌本回合耗能-1。"
+  },
+  "DeathReaper:UnfinishedReckoning": {
+    "NAME": "未尽清算",
+    "DESCRIPTION": " dr:修饰语 。 NL 本回合 dr:清算 后不减少 dr:威压 。 NL 消耗 。",
+    "UPGRADE_DESCRIPTION": " dr:修饰语 。 NL 本回合 dr:清算 后不减少 dr:威压 。 NL dr:埋葬 。"
+  },
+  "DeathReaper:ShapeShifting": {
+    "NAME": "移形换影",
+    "DESCRIPTION": "获得 !B! 点格挡。 NL 若有 [E] ，消耗 [E] 并获得 !M! 点 敏捷 。"
+  },
+  "DeathReaper:CalmDown": {
+    "NAME": "镇静",
+    "DESCRIPTION": "失去 5 点 dr:威压 ，获得 [E] [E] 。",
+    "UPGRADE_DESCRIPTION": "失去 5 点 dr:威压 ，获得 [E] [E] [E] 。"
+  },
+  "DeathReaper:Insight": {
+    "NAME": "洞察",
+    "DESCRIPTION": "获得 !B! 点 格挡 。 NL 选择抽牌堆中的一张牌置于抽牌堆顶。 NL 消耗 。"
+  },
+  "DeathReaper:CursedFlame": {
+    "NAME": "诅咒之焰",
+    "DESCRIPTION": "对所有敌人造成 !D! 点伤害。 NL dr:埋葬 。"
+  },
+  "DeathReaper:DoubleEnergy": {
+    "NAME": "双倍能量",
+    "DESCRIPTION": "将你的 [E] 翻倍。 NL 消耗 。",
+    "UPGRADE_DESCRIPTION": " 保留 。 NL 将你的 [E] 翻倍。 NL 消耗 。"
+  },
+  "DeathReaper:SilentReckoning": {
+    "NAME": "寂静清算",
+    "DESCRIPTION": " dr:修饰语 。 NL 本回合 dr:清算 时不造成伤害也不清空敌人的 dr:审判 。 NL 下回合开始时获得 !M! 点 dr:威压 。"
+  },
+  "DeathReaper:UltimateReckoning": {
+    "NAME": "终极清算",
+    "DESCRIPTION": " dr:修饰语 。 NL 本回合 dr:清算 时 dr:审判 多造成一次伤害。 NL 消耗 。",
+    "UPGRADE_DESCRIPTION": " dr:修饰语 。 NL 本回合 dr:清算 时 dr:审判 多造成一次伤害。"
+  },
+  "DeathReaper:SoulImprint": {
+    "NAME": "魂之烙印",
+    "DESCRIPTION": " 虚无 。 NL 战斗结束时，若你的 dr:威压 上限至少为战斗开始时的 2 倍，永久增加 !M! 点 dr:威压 上限。",
+    "UPGRADE_DESCRIPTION": "战斗结束时，若你的 dr:威压 上限至少为战斗开始时的 2 倍，永久增加 !M! 点 dr:威压 上限。"
+  },
+  "DeathReaper:StageAComeback": {
+    "NAME": "卷土重来",
+    "DESCRIPTION": "抽牌直到达到手牌上限或失去所有 dr:威压 ，每抽 1 张牌失去 1 点 dr:威压 。 NL 消耗 。"
+  },
+  "DeathReaper:ShadowScythe": {
+    "NAME": "暗影之镰",
+    "DESCRIPTION": "造成 !D! 点伤害并 dr:发掘 !M! 张牌，若 dr:发掘 的是攻击牌则获得 [E] [E] 。"
+  },
+  "DeathReaper:PunishZone": {
+    "NAME": "清算领域",
+    "DESCRIPTION": "将 X 张 dr:临时 的 随机 dr:修饰语 牌加入手牌。",
+    "UPGRADE_DESCRIPTION": "将 X 张 dr:临时 的 随机 升级 dr:修饰语 牌加入手牌。"
+  },
+  "DeathReaper:SoulSwap": {
+    "NAME": "灵魂交换",
+    "DESCRIPTION": "丢弃 !M! 张牌，然后 dr:发掘 !M! 张牌。"
+  },
+  "DeathReaper:GodOfDeath": {
+    "NAME": "死亡之神",
+    "DESCRIPTION": " dr:埋葬 一张牌时，将其移入 弃牌堆 而非 dr:墓地 。"
+  },
+  "DeathReaper:": {
+    "NAME": "霸气护体",
+    "DESCRIPTION": "你的 dr:威压 上限每增加 1 ，获得 !M! 点 格挡 。"
+  },
+  "@@@@@@@@@@Deprecated": {
+    "NAME": "下列卡牌已弃用"
+  },
+  "DeathReaper:Epitaph": {
+    "NAME": "墓志铭",
+    "DESCRIPTION": "将一张 *诅咒之焰 移入 dr:墓地 。",
+    "UPGRADE_DESCRIPTION": "将一张 升级 的 *诅咒之焰 移入 dr:墓地 。"
+  },
+  "DeathReaper:Cremation": {
+    "NAME": "火葬",
+    "DESCRIPTION": "选择任意张手牌来 dr:埋葬 ，每 dr:埋葬 一张造成一次 !D! 点伤害并获得 !M! 点 dr:威压 。",
+    "EXTENDED_DESCRIPTION": ["埋葬"]
+  },
+  "DeathReaper:GodsPunishment": {
+    "NAME": "神罚",
+    "DESCRIPTION": "选择任意张手牌来 dr:埋葬 。 NL 将等量的 *惩戒 加入手牌。 NL 消耗 。",
+    "UPGRADE_DESCRIPTION": "选择任意张手牌来 dr:埋葬 。 NL 将等量的 升级 的 *惩戒 加入手牌。 NL 消耗 。",
+    "EXTENDED_DESCRIPTION": ["埋葬"]
+  },
+  "DeathReaper:WipeOut": {
+    "NAME": "一笔勾销",
+    "DESCRIPTION": "目标失去等同于 dr:审判 层数的生命。 NL 消耗 。",
+    "EXTENDED_DESCRIPTION": [" NL (造成 ", " 点伤害。)"]
+  },
+  "DeathReaper:DeathCurse": {
+    "NAME": "死亡诅咒",
+    "DESCRIPTION": "将 !M! 张 *惩戒 加入手牌。",
+    "UPGRADE_DESCRIPTION": "将 !M! 张 升级 的 *惩戒 加入手牌。"
+  },
+  "DeathReaper:Punishment": {
+    "NAME": "惩戒",
+    "DESCRIPTION": "给予随机敌人 !M! 点 dr:审判 。 NL 在本场战斗中所有 *惩戒 牌的数值增加 1 。 NL dr:埋葬 。"
+  },
+  "DeathReaper:Ferry": {
+    "NAME": "引渡",
+    "DESCRIPTION": "选择 !M! 张手牌 dr:埋葬 。 NL 获得 [E] [E] 。",
+    "EXTENDED_DESCRIPTION": ["埋葬"]
+  },
+  "DeathReaper:SummonRaven": {
+    "NAME": "渡鸦召唤",
+    "DESCRIPTION": "造成 !D! 点伤害。 dr:埋葬 。 NL dr:发掘 一张牌时，同样将此牌 dr:发掘 。"
   }
 }

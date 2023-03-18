@@ -1,6 +1,5 @@
 package DeathReaper.powers;
 
-import basemod.interfaces.CloneablePowerInterface;
 import basemod.interfaces.PostPowerApplySubscriber;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -15,18 +14,18 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.powers.DexterityPower;
-import DeathReaper.DefaultMod;
+import DeathReaper.DeathReaperCore;
 import DeathReaper.util.TextureLoader;
 import com.megacrit.cardcrawl.powers.StrengthPower;
 
-import static DeathReaper.DefaultMod.makePowerPath;
+import static DeathReaper.DeathReaperCore.makePowerPath;
 
 //Gain 1 dex for the turn for each card played.
 
 public class CommonPower extends AbstractDeathReaperPower implements PostPowerApplySubscriber {
     public AbstractCreature source;
 
-    public static final String POWER_ID = DefaultMod.makeID("CommonPower");
+    public static final String POWER_ID = DeathReaperCore.makeID("CommonPower");
     private static final PowerStrings powerStrings = CardCrawlGame.languagePack.getPowerStrings(POWER_ID);
     public static final String NAME = powerStrings.NAME;
     public static final String[] DESCRIPTIONS = powerStrings.DESCRIPTIONS;

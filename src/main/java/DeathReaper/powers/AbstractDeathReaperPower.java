@@ -2,6 +2,7 @@ package DeathReaper.powers;
 
 import DeathReaper.actions.ReckoningAction;
 import com.badlogic.gdx.graphics.Color;
+import com.evacipated.cardcrawl.mod.stslib.powers.abstracts.TwoAmountPower;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 
@@ -13,9 +14,9 @@ public abstract class AbstractDeathReaperPower extends AbstractPower {
 
     public void onTrigger(ReckoningAction action) {}
 
-    public float JudgementModify(float dmg) { return dmg; }
-
-    public float BlockModify(float blk) { return blk; }
-
     public void onExhume(AbstractCard c) {}
+
+    public void onBury(AbstractCard c) {}
+
+    public void onMaxPressureIncrease(int amount) {}
 }

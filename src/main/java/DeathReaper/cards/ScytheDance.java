@@ -7,15 +7,15 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import DeathReaper.characters.TheDeathReaper;
-import DeathReaper.DefaultMod;
+import DeathReaper.DeathReaperCore;
 
-import static DeathReaper.DefaultMod.makeCardPath;
-import static DeathReaper.DefaultMod.getPowerAmount;
+import static DeathReaper.DeathReaperCore.makeCardPath;
+import static DeathReaper.DeathReaperCore.getPowerAmount;
 
-public class ShareGuilt extends AbstractDynamicCard {
+public class ScytheDance extends AbstractDynamicCard {
     // TEXT DECLARATION
 
-    public static final String ID = DefaultMod.makeID(ShareGuilt.class.getSimpleName());
+    public static final String ID = DeathReaperCore.makeID(ScytheDance.class.getSimpleName());
     public static final String IMG = makeCardPath("Attack.png");
 
     // /TEXT DECLARATION/
@@ -26,7 +26,7 @@ public class ShareGuilt extends AbstractDynamicCard {
     private static final CardRarity RARITY = CardRarity.COMMON; //  Up to you, I like auto-complete on these
     private static final CardTarget TARGET = CardTarget.NONE;  //   since they don't change much.
     private static final CardType TYPE = CardType.ATTACK;
-    public static final CardColor COLOR = TheDeathReaper.Enums.COLOR_GRAY;
+    public static final CardColor COLOR = TheDeathReaper.Enums.DEATH_REAPER;
 
     private static final int COST = 2;
     private static final int UPGRADED_COST = 2;
@@ -38,7 +38,7 @@ public class ShareGuilt extends AbstractDynamicCard {
     // /STAT DECLARATION/
 
 
-    public ShareGuilt() {
+    public ScytheDance() {
         super(ID, IMG, COST, TYPE, COLOR, RARITY, TARGET);
         baseDamage = damage = DAMAGE;
         magicNumber = baseMagicNumber = MAGIC;

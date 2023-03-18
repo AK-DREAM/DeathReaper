@@ -1,12 +1,11 @@
 package DeathReaper.actions;
 
-import DeathReaper.DefaultMod;
+import DeathReaper.DeathReaperCore;
 import basemod.BaseMod;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.CardGroup;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
-import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
@@ -66,7 +65,7 @@ public class MyMoveCardsAction extends AbstractGameAction {
 
     public void moveCards() {
         for (AbstractCard card : callbackList) {
-            if (this.source == this.p.exhaustPile || this.source == DefaultMod.graveyardPile)
+            if (this.source == this.p.exhaustPile || this.source == DeathReaperCore.graveyardPile)
                 card.unfadeOut();
             if (this.destination == this.p.hand && this.p.hand.size() == BaseMod.MAX_HAND_SIZE) {
                 this.source.moveToDiscardPile(card);

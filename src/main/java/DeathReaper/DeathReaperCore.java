@@ -4,7 +4,10 @@ import DeathReaper.powers.AbstractDeathReaperPower;
 import DeathReaper.util.*;
 import basemod.*;
 import basemod.abstracts.CustomRelic;
+import basemod.cardmods.EtherealMod;
+import basemod.cardmods.ExhaustMod;
 import basemod.eventUtil.AddEventParams;
+import basemod.helpers.CardModifierManager;
 import basemod.interfaces.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
@@ -18,6 +21,7 @@ import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
 import com.google.gson.Gson;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.CardGroup;
+import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
@@ -27,7 +31,6 @@ import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.localization.*;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import com.megacrit.cardcrawl.unlock.UnlockTracker;
-import com.megacrit.cardcrawl.vfx.cardManip.ExhaustCardEffect;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import DeathReaper.cards.*;
@@ -35,12 +38,17 @@ import DeathReaper.characters.TheDeathReaper;
 import DeathReaper.events.IdentityCrisisEvent;
 import DeathReaper.potions.PlaceholderPotion;
 import DeathReaper.variables.DefaultCustomVariable;
-import DeathReaper.variables.DefaultSecondMagicNumber;
 
+import javax.smartcardio.Card;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
+
+import static com.megacrit.cardcrawl.dungeons.AbstractDungeon.*;
+import static com.megacrit.cardcrawl.dungeons.AbstractDungeon.cardRandomRng;
 
 //TODO: DON'T MASS RENAME/REFACTOR
 //TODO: DON'T MASS RENAME/REFACTOR
@@ -72,18 +80,17 @@ import java.util.Properties;
  */
 
 @SpireInitializer
-public class DefaultMod implements
+public class DeathReaperCore implements
         EditCardsSubscriber,
         EditRelicsSubscriber,
         EditStringsSubscriber,
         EditKeywordsSubscriber,
         EditCharactersSubscriber,
         PostInitializeSubscriber,
-        OnStartBattleSubscriber,
         PostBattleSubscriber {
     // Make sure to implement the subscribers *you* are using (read basemod wiki). Editing cards? EditCardsSubscriber.
     // Making relics? EditRelicsSubscriber. etc., etc., for a full list and how to make your own, visit the basemod wiki.
-    public static final Logger logger = LogManager.getLogger(DefaultMod.class.getName());
+    public static final Logger logger = LogManager.getLogger(DeathReaperCore.class.getName());
     private static String modID;
 
     // Mod-settings settings. This is if you want an on/off savable button
@@ -174,7 +181,7 @@ public class DefaultMod implements
     
     // =============== SUBSCRIBE, CREATE THE COLOR_GRAY, INITIALIZE =================
     
-    public DefaultMod() {
+    public DeathReaperCore() {
         logger.info("Subscribe to BaseMod hooks");
         
         BaseMod.subscribe(this);
@@ -208,9 +215,9 @@ public class DefaultMod implements
         
         logger.info("Done subscribing");
         
-        logger.info("Creating the color " + TheDeathReaper.Enums.COLOR_GRAY.toString());
+        logger.info("Creating the color " + TheDeathReaper.Enums.DEATH_REAPER.toString());
         
-        BaseMod.addColor(TheDeathReaper.Enums.COLOR_GRAY, DEFAULT_GRAY, DEFAULT_GRAY, DEFAULT_GRAY,
+        BaseMod.addColor(TheDeathReaper.Enums.DEATH_REAPER, DEFAULT_GRAY, DEFAULT_GRAY, DEFAULT_GRAY,
                 DEFAULT_GRAY, DEFAULT_GRAY, DEFAULT_GRAY, DEFAULT_GRAY,
                 ATTACK_DEFAULT_GRAY, SKILL_DEFAULT_GRAY, POWER_DEFAULT_GRAY, ENERGY_ORB_DEFAULT_GRAY,
                 ATTACK_DEFAULT_GRAY_PORTRAIT, SKILL_DEFAULT_GRAY_PORTRAIT, POWER_DEFAULT_GRAY_PORTRAIT,
@@ -242,7 +249,7 @@ public class DefaultMod implements
     public static void setModID(String ID) { // DON'T EDIT
         Gson coolG = new Gson(); // EY DON'T EDIT THIS
         //   String IDjson = Gdx.files.internal("IDCheckStringsDONT-EDIT-AT-ALL.json").readString(String.valueOf(StandardCharsets.UTF_8)); // i hate u Gdx.files
-        InputStream in = DefaultMod.class.getResourceAsStream("/IDCheckStringsDONT-EDIT-AT-ALL.json"); // DON'T EDIT THIS ETHER
+        InputStream in = DeathReaperCore.class.getResourceAsStream("/IDCheckStringsDONT-EDIT-AT-ALL.json"); // DON'T EDIT THIS ETHER
         IDCheckDontTouchPls EXCEPTION_STRINGS = coolG.fromJson(new InputStreamReader(in, StandardCharsets.UTF_8), IDCheckDontTouchPls.class); // OR THIS, DON'T EDIT IT
         logger.info("You are attempting to set your mod ID as: " + ID); // NO WHY
         if (ID.equals(EXCEPTION_STRINGS.DEFAULTID)) { // DO *NOT* CHANGE THIS ESPECIALLY, TO EDIT YOUR MOD ID, SCROLL UP JUST A LITTLE, IT'S JUST ABOVE
@@ -262,9 +269,9 @@ public class DefaultMod implements
     private static void pathCheck() { // ALSO NO
         Gson coolG = new Gson(); // NOPE DON'T EDIT THIS
         //   String IDjson = Gdx.files.internal("IDCheckStringsDONT-EDIT-AT-ALL.json").readString(String.valueOf(StandardCharsets.UTF_8)); // i still hate u btw Gdx.files
-        InputStream in = DefaultMod.class.getResourceAsStream("/IDCheckStringsDONT-EDIT-AT-ALL.json"); // DON'T EDIT THISSSSS
+        InputStream in = DeathReaperCore.class.getResourceAsStream("/IDCheckStringsDONT-EDIT-AT-ALL.json"); // DON'T EDIT THISSSSS
         IDCheckDontTouchPls EXCEPTION_STRINGS = coolG.fromJson(new InputStreamReader(in, StandardCharsets.UTF_8), IDCheckDontTouchPls.class); // NAH, NO EDIT
-        String packageName = DefaultMod.class.getPackage().getName(); // STILL NO EDIT ZONE
+        String packageName = DeathReaperCore.class.getPackage().getName(); // STILL NO EDIT ZONE
         FileHandle resourcePathExists = Gdx.files.internal(getModID() + "Resources"); // PLEASE DON'T EDIT THINGS HERE, THANKS
         if (!modID.equals(EXCEPTION_STRINGS.DEVID)) { // LEAVE THIS EDIT-LESS
             if (!packageName.equals(getModID())) { // NOT HERE ETHER
@@ -281,7 +288,7 @@ public class DefaultMod implements
     
     public static void initialize() {
         logger.info("========================= Initializing Default Mod. Hi. =========================");
-        DefaultMod defaultmod = new DefaultMod();
+        DeathReaperCore defaultmod = new DeathReaperCore();
         logger.info("========================= /Default Mod Initialized. Hello World./ =========================");
     }
     
@@ -292,13 +299,13 @@ public class DefaultMod implements
     
     @Override
     public void receiveEditCharacters() {
-        logger.info("Beginning to edit characters. " + "Add " + TheDeathReaper.Enums.THE_DEFAULT.toString());
+        logger.info("Beginning to edit characters. " + "Add " + TheDeathReaper.Enums.THE_DEATH_REAPER.toString());
         
-        BaseMod.addCharacter(new TheDeathReaper("the Default", TheDeathReaper.Enums.THE_DEFAULT),
-                THE_DEFAULT_BUTTON, THE_DEFAULT_PORTRAIT, TheDeathReaper.Enums.THE_DEFAULT);
+        BaseMod.addCharacter(new TheDeathReaper("the Default", TheDeathReaper.Enums.THE_DEATH_REAPER),
+                THE_DEFAULT_BUTTON, THE_DEFAULT_PORTRAIT, TheDeathReaper.Enums.THE_DEATH_REAPER);
         
         receiveEditPotions();
-        logger.info("Added " + TheDeathReaper.Enums.THE_DEFAULT.toString());
+        logger.info("Added " + TheDeathReaper.Enums.THE_DEATH_REAPER.toString());
     }
     
     // =============== /LOAD THE CHARACTER/ =================
@@ -354,13 +361,7 @@ public class DefaultMod implements
 
         // Create a new event builder
         // Since this is a builder these method calls (outside of create()) can be skipped/added as necessary
-        AddEventParams eventParams = new AddEventParams.Builder(IdentityCrisisEvent.ID, IdentityCrisisEvent.class) // for this specific event
-            .dungeonID(TheCity.ID) // The dungeon (act) this event will appear in
-            .playerClass(TheDeathReaper.Enums.THE_DEFAULT) // Character specific event
-            .create();
 
-        // Add the event
-        BaseMod.addEvent(eventParams);
 
         // =============== /EVENTS/ =================
         logger.info("Done loading badge Image and mod options");
@@ -378,8 +379,7 @@ public class DefaultMod implements
         // Class Specific Potion. If you want your potion to not be class-specific,
         // just remove the player class at the end (in this case the "TheDefaultEnum.THE_DEFAULT".
         // Remember, you can press ctrl+P inside parentheses like addPotions)
-        BaseMod.addPotion(PlaceholderPotion.class, PLACEHOLDER_POTION_LIQUID, PLACEHOLDER_POTION_HYBRID, PLACEHOLDER_POTION_SPOTS, PlaceholderPotion.POTION_ID, TheDeathReaper.Enums.THE_DEFAULT);
-        
+
         logger.info("Done editing potions");
     }
     
@@ -403,7 +403,7 @@ public class DefaultMod implements
         new AutoAdd("DeathReaper")
                 .packageFilter("DeathReaper.relics")
                 .any(CustomRelic.class, (info, relic) -> {
-                    BaseMod.addRelicToCustomPool(relic, TheDeathReaper.Enums.COLOR_GRAY);
+                    BaseMod.addRelicToCustomPool(relic, TheDeathReaper.Enums.DEATH_REAPER);
                     UnlockTracker.markRelicAsSeen(relic.relicId);
                 });
         logger.info("Done adding relics!");
@@ -423,8 +423,7 @@ public class DefaultMod implements
         logger.info("Add variables");
         // Add the Custom Dynamic variables
         BaseMod.addDynamicVariable(new DefaultCustomVariable());
-        BaseMod.addDynamicVariable(new DefaultSecondMagicNumber());
-        
+
         logger.info("Adding cards");
         // Add the cards
         // Don't delete these default cards yet. You need 1 of each type and rarity (technically) for your game not to crash
@@ -541,25 +540,72 @@ public class DefaultMod implements
         graveyardPile = new CardGroup(CardGroup.CardGroupType.UNSPECIFIED);
         BaseMod.addCustomScreen(new GraveyardScreen());
     }
-    @Override
-    public void receiveOnBattleStart(AbstractRoom r) {
-        graveyardPile.clear();
+    @SpirePatch(clz = AbstractPlayer.class, method = "preBattlePrep")
+    public static class ClearGraveyardPatch {
+        @SpireInsertPatch(rloc = 31)
+        public static void Insert(AbstractPlayer p) { graveyardPile.clear(); }
     }
     @Override
     public void receivePostBattle(AbstractRoom r) {
         graveyardPile.clear();
     }
 
-    public static void moveToGraveyard(AbstractCard c) {
-        ReflectionHacks.privateMethod(CardGroup.class, "resetCardBeforeMoving", new Class[]{AbstractCard.class}).invoke(AbstractDungeon.player.hand, c);
+    public static void moveToGraveyard(CardGroup source, AbstractCard c) {
+        ReflectionHacks.privateMethod(CardGroup.class, "resetCardBeforeMoving", new Class[]{AbstractCard.class}).invoke(source, c);
         if (c instanceof AbstractDeathReaperCard)
-            ((AbstractDeathReaperCard) c).onBuried();
+            ((AbstractDeathReaperCard) c).onBury();
+        if (!(c instanceof IntangibleBody))
+            c.modifyCostForCombat(-99);
+        AbstractDungeon.player.powers.stream()
+                .filter(pw -> pw instanceof AbstractDeathReaperPower)
+                .forEach(pw -> {
+                    ((AbstractDeathReaperPower)pw).onBury(c);
+                });
+        for (AbstractCard card : player.hand.group)
+            if (card instanceof AbstractDeathReaperCard)
+                ((AbstractDeathReaperCard)card).onOtherCardsBury(c);
+        for (AbstractCard card : player.drawPile.group)
+            if (card instanceof AbstractDeathReaperCard)
+                ((AbstractDeathReaperCard)card).onOtherCardsBury(c);
+        for (AbstractCard card : player.discardPile.group)
+            if (card instanceof AbstractDeathReaperCard)
+                ((AbstractDeathReaperCard)card).onOtherCardsBury(c);
+
         graveyardPile.addToTop(c);
-        AbstractDungeon.effectList.add(new BuryCardEffect(c));
+        if (source == AbstractDungeon.player.hand)
+            AbstractDungeon.effectList.add(new BuryCardEffect(c));
     }
 
     public static int getPowerAmount(AbstractCreature c, String powerID) {
         if (c == null || !c.hasPower(powerID)) return 0;
         return c.getPower(powerID).amount;
+    }
+
+    public static void makeTemporary(AbstractCard c) {
+        c.modifyCostForCombat(-99);
+        CardModifierManager.addModifier(c, new EtherealMod());
+        CardModifierManager.addModifier(c, new ExhaustMod());
+    }
+
+    public static List<AbstractCard> generatePrefixCards() {
+        List<AbstractCard> list = new ArrayList<>();
+        for (AbstractCard c : srcCommonCardPool.group) {
+            if (c.hasTag(AbstractDeathReaperCard.Enums.PREFIX) && !c.hasTag(AbstractCard.CardTags.HEALING))
+                list.add(c);
+        }
+        for (AbstractCard c : srcUncommonCardPool.group) {
+            if (c.hasTag(AbstractDeathReaperCard.Enums.PREFIX) && !c.hasTag(AbstractCard.CardTags.HEALING))
+                list.add(c);
+        }
+        for (AbstractCard c : srcRareCardPool.group) {
+            if (c.hasTag(AbstractDeathReaperCard.Enums.PREFIX) && !c.hasTag(AbstractCard.CardTags.HEALING))
+                list.add(c);
+        }
+        return list;
+    }
+    public static AbstractCard generateRandomPrefixCard() {
+        List<AbstractCard> list = generatePrefixCards();
+        if (list.isEmpty()) return AbstractDungeon.returnTrulyRandomCardInCombat();
+        else return list.get(cardRandomRng.random(list.size()-1)).makeStatEquivalentCopy();
     }
 }
